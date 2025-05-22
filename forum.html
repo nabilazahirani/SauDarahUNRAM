@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forum - SauDarahUNRAM</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #fff;
+            color: #666;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo img {
+            width: 200px;
+            height: auto;
+        }
+        
+        .profile-wrapper {
+            position: relative;
+        }
+        
+        .profile-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+        
+        #profileImage {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #c30000;
+            display: block;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            position: absolute;
+            top: 60px;
+            right: 0;
+            z-index: 10;
+            width: max-content;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 3px 10px;
+            color: #c30000;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f8f8f8;
+        }
+        
+        nav {
+            background-color: #f8b0b0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 15px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s, background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #f14b4b;
+            text-decoration: none;
+        }
+        
+        nav ul li a.active {
+            background-color: white;
+            color: #f14b4b;
+            text-decoration: none;
+        }
+        
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        h2 {
+            font-size: 28px;
+            color: #c30000;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .forum-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            justify-content: center;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-content span {
+            background-color: #f5c6cb;
+            color: #800000;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            align-self: flex-start;
+        }
+        
+        .card-content .author {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .card-content h3 {
+            font-size: 17px;
+            margin: 8px 0;
+            color: #333;
+        }
+        
+        .card-content p {
+            font-size: 14px;
+            color: #777;
+            margin: 0;
+        }
+        
+        @media (max-width: 980px) {
+            .forum-container {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="Assets/Logo-Unram.jpg" alt="Logo RS Unram" />
+        </div>
+        <div class="profile-wrapper">
+            <button class="profile-button" onclick="toggleDropdown()" aria-label="Toggle profile menu">
+        <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="42px" fill="#c30000">
+          <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/>
+        </svg>
+      </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" onclick="logout()">Log Out</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="beranda.html">Beranda</a></li>
+            <li><a href="forum.html" class="active">Forum</a></li>
+            <li><a href="acara.html">Acara</a></li>
+            <li><a href="edukasi.html">Edukasi</a></li>
+            <li><a href="riwayat.html">Riwayat</a></li>
+            <li><a href="reward.html">Reward</a></li>
+            <li><a href="notifikasi.html">Notifikasi</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Forum Diskusi Terbaru</h2>
+        <div class="forum-container">
+            <div class="card">
+                <img src="Assets/artikel2.jpeg" alt="Cerita 1" />
+                <div class="card-content">
+                    <span>Pengalaman</span>
+                    <p class="author">- Nabila</p>
+                    <h3>Donor darah menyelamatkan hidup saya</h3>
+                    <p class="description">Suatu ketika saya mengalami kecelakaan, dan darah yang saya terima dari donor sukarela membuat saya bisa pulih dengan cepat.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="Assets/artikel4.jpeg" alt="Cerita 2" />
+                <div class="card-content">
+                    <span>Tips</span>
+                    <p class="author">- Budi</p>
+                    <h3>Cara mempersiapkan donor darah</h3>
+                    <p class="description">Pastikan tubuh kamu dalam kondisi sehat dan cukup istirahat sebelum donor darah agar hasilnya maksimal.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="Assets/artikel5.jpg" alt="Cerita 3" />
+                <div class="card-content">
+                    <span>Pengalaman</span>
+                    <p class="author">- Sari</p>
+                    <h3>Donor darah pertama saya</h3>
+                    <p class="description">Awalnya takut, tapi pengalaman donor darah pertama membuat saya merasa lebih sehat dan bermanfaat.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="Assets/artikel6.jpg" alt="Cerita 4" />
+                <div class="card-content">
+                    <span>Informasi</span>
+                    <p class="author">- Andi</p>
+                    <h3>Manfaat donor darah secara rutin</h3>
+                    <p class="description">Donor darah rutin dapat membantu menjaga kesehatan jantung dan meningkatkan produksi sel darah baru.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="Assets/artikel7.png" alt="Cerita 5" />
+                <div class="card-content">
+                    <span>Motivasi</span>
+                    <p class="author">- Rina</p>
+                    <h3>Kenapa saya memilih donor darah</h3>
+                    <p class="description">Memberikan darah berarti menyelamatkan nyawa orang lain, itu motivasi terbesar saya.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="Assets/artikel8.jpg" alt="Cerita 6" />
+                <div class="card-content">
+                    <span>Tips</span>
+                    <p class="author">- Dedi</p>
+                    <h3>Makanan yang baik sebelum donor darah</h3>
+                    <p class="description">Konsumsi makanan bergizi dan hindari kafein agar hasil donor darah optimal dan tubuh cepat pulih.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="Assets/artikel9.jpeg" alt="Cerita 7" />
+                <div class="card-content">
+                    <span>Informasi</span>
+                    <p class="author">- Maya</p>
+                    <h3>Proses donor darah dari awal hingga selesai</h3>
+                    <p class="description">Kenali langkah-langkah donor darah supaya kamu lebih siap dan tenang saat melakukannya.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownMenu');
+            if (dropdown.style.display === 'flex') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'flex';
+            }
+        }
+
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdownMenu');
+            const button = document.querySelector('.profile-button');
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        function logout() {
+            window.location.href = 'masuk.html';
+        }
+    </script>
+
+</body>
+
+</html>

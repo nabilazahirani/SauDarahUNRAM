@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beranda - SauDarahUNRAM</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #666;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      background-color: #fff;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo img {
+      width: 200px;
+      height: auto;
+    }
+
+    .profile-wrapper {
+      position: relative;
+      z-index: 1100;
+    }
+
+    .profile-button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    #profileImage {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #c30000;
+      display: block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      position: absolute;
+      top: 60px;
+      right: 0;
+      z-index: 1200;
+      width: max-content;
+      user-select: none;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 3px 10px;
+      color: #c30000;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f8f8f8;
+    }
+
+    nav {
+      background-color: #f8b0b0;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+    }
+
+    nav ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      cursor: pointer;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    nav ul li.active a {
+      background-color: white;
+      color: #f14b4b;
+      cursor: default;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 600px;
+      margin: 50px auto 60px;
+      padding: 0 20px;
+    }
+
+    main h1 {
+      color: #c30000;
+      font-weight: 700;
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    main p {
+      color: #777;
+      font-size: 15px;
+      line-height: 1.6;
+      text-align: justify;
+      max-width: 520px;
+    }
+
+    /* Section Cerita Terbaru */
+    section.cerita-terbaru {
+      background-color: #f8b0b0;
+      padding: 50px 20px;
+    }
+
+    section.cerita-terbaru .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    section.cerita-terbaru .header h2 {
+      font-size: 28px;
+      color: rgb(255, 255, 255);
+    }
+
+    section.cerita-terbaru .header h2 span {
+      color: #c30000;
+    }
+
+    section.cerita-terbaru .header p {
+      color: #ffffff;
+    }
+
+    section.cerita-terbaru .cards {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section.cerita-terbaru .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    section.cerita-terbaru .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    section.cerita-terbaru .card-content {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    section.cerita-terbaru .card-content span {
+      background-color: #f5c6cb;
+      color: #800000;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+
+    section.cerita-terbaru .card-content p.author {
+      margin: 8px 0 4px;
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+    }
+
+    section.cerita-terbaru .card-content h3 {
+      font-size: 17px;
+      margin: 4px 0;
+      color: #333;
+      flex-grow: 0;
+    }
+
+    section.cerita-terbaru .card-content p.description {
+      font-size: 14px;
+      color: #777;
+      margin-top: 6px;
+      flex-grow: 1;
+    }
+
+    .btn-forum-lainnya {
+      margin-top: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 12px 30px;
+      background-color: #fe939e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease;
+      display: block;
+    }
+
+    .btn-forum-lainnya:hover {
+      background-color: #a10000;
+    }
+
+    @media (max-width: 980px) {
+      section.cerita-terbaru .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+      section.cerita-terbaru .card {
+        width: 90%;
+        max-width: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="Assets/Logo-Unram.jpg" alt="Logo RS Unram" />
+    </div>
+
+    <div class="profile-wrapper">
+      <button class="profile-button" onclick="toggleDropdown()" aria-label="Toggle profile menu">
+        <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="42px" fill="#c30000">
+          <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/>
+        </svg>
+      </button>
+      <div class="dropdown-menu" id="dropdownMenu">
+          <a href="#" onclick="logout()">Log Out</a>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li class="active"><a href="#" aria-current="page">Beranda</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="acara.html">Acara</a></li>
+      <li><a href="edukasi.html">Edukasi</a></li>
+      <li><a href="riwayat.html">Riwayat</a></li>
+      <li><a href="reward.html">Reward</a></li>
+      <li><a href="notifikasi.html">Notifikasi</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <img src="Assets/logopmi.png" alt="Icon" width="100" style="margin-bottom: 20px;" />
+    <h1>Apa itu SauDarahUNRAM ?</h1>
+    <p>
+      SauDarahUNRAM adalah platform yang bertujuan untuk menghubungkan pasien yang membutuhkan transfusi darah dengan pendonor sukarela di lingkungan Rumah Sakit Universitas Mataram.
+      Website ini hadir sebagai wujud kepedulian, memastikan darah tersedia bagi mereka yang membutuhkan, tanpa biaya apapun. Setiap pendonor yang bergabung adalah relawan yang dengan tulus membantu sesama dalam misi kemanusiaan untuk menyelamatkan nyawa.
+    </p>
+  </main>
+
+  <section class="cerita-terbaru">
+    <div class="header">
+      <h2><span>Cerita</span> Terbaru</h2>
+      <p>Pengalaman yang menginspirasi dari para pendonor dan pasien</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <img src="Assets/artikel1.jpeg" alt="Cerita 1" />
+        <div class="card-content">
+          <span>Pengalaman</span>
+          <p class="author">- Wiwik</p>
+          <h3>Universitas Mataram Gelar Aksi Donor Darah</h3>
+          <p class="description">UM mengadakan kegiatan donor darah untuk membantu memenuhi kebutuhan darah di RS Unram dan menyadarkan masyarakat akan pentingnya donor darah.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="Assets/artikel2.jpeg" alt="Cerita 2" />
+        <div class="card-content">
+          <span>Pengalaman</span>
+          <p class="author">- Nabila</p>
+          <h3>Donor Darah Wujudkan Solidaritas Kemanusiaan</h3>
+          <p class="description">Donor darah sebagai wujud solidaritas dan kepedulian sosial, membantu menyelamatkan banyak nyawa dengan cara yang sederhana dan bermakna.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="Assets/artikel3.jpeg" alt="Cerita 3" />
+        <div class="card-content">
+          <span>Pengalaman</span>
+          <p class="author">- Izza</p>
+          <h3>Kegiatan Donor Darah di Lingkungan Kampus</h3>
+          <p class="description">Kampus menggelar donor darah rutin untuk mendukung kebutuhan transfusi darah bagi pasien di Rumah Sakit Universitas Mataram.</p>
+        </div>
+      </div>
+    </div>
+    <button class="btn-forum-lainnya" onclick="location.href='forum.html'">Lihat Forum Lainnya</button>
+  </section>
+
+<script>
+  function toggleDropdown() {
+    const dropdown = document.getElementById('dropdownMenu');
+    if (dropdown.style.display === 'flex') {
+      dropdown.style.display = 'none';
+    } else {
+      dropdown.style.display = 'flex';
+    }
+  }
+
+  window.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('dropdownMenu');
+    const button = document.querySelector('.profile-button');
+    if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  function logout() {
+    window.location.href = 'masuk.html';
+  }
+</script>
+
+
+</body>
+</html>
